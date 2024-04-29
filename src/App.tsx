@@ -1,4 +1,5 @@
 import BudgetTracker from "./components/BudgetTracker"
+import ExpenseFilter from "./components/ExpenseFilter"
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       {/* <BudgetForm /> */}
 
       <BudgetTracker />
+      <ExpenseFilter />
 
     </div>
   )
