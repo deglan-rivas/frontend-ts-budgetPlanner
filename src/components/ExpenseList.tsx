@@ -57,9 +57,17 @@ function ExpenseItem({ expense }) {
 export default function ExpenseList({ expenses }) {
   return (
     <section className="px-10 py-10 bg-white max-w-3xl mx-auto space-y-10">
-      <h2 className="text-gray-600 font-semibold text-2xl">
-        Listado de Gastos
-      </h2>
+      {
+        expenses.length === 0 ? (
+          <h2 className="text-gray-600 font-semibold text-2xl">
+            No hay gastos aún
+          </h2>
+        ) : (
+          <h2 className="text-gray-600 font-semibold text-2xl">
+            Listado de Gastos
+          </h2>
+        )
+      }
 
       {
         expenses.map((expense) => (
