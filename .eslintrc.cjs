@@ -8,11 +8,16 @@ module.exports = {
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh'],
+  plugins: ['react-refresh', 'react-camel-case', 'svg-jsx'],
   rules: {
     'react-refresh/only-export-components': [
       'warn',
-      { allowConstantExport: true },
+      { allowConstantExport: true }
     ],
+    // 'react-camel-case/react-camel-case': 'error',
+    "svg-jsx/camel-case-dash": "error",
+    "svg-jsx/camel-case-colon": "error",
+    "svg-jsx/no-style-string": "error",
+
   },
 }
