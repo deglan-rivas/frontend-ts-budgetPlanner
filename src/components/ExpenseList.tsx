@@ -54,7 +54,7 @@ function ExpenseItem({ expense }) {
   )
 }
 
-export default function ExpenseList() {
+export default function ExpenseList({ expenses }) {
   return (
     <section className="px-10 py-10 bg-white max-w-3xl mx-auto space-y-10">
       <h2 className="text-gray-600 font-semibold text-2xl">
@@ -62,7 +62,7 @@ export default function ExpenseList() {
       </h2>
 
       {
-        expenseList.map((expense) => (
+        expenses.map((expense) => (
           <ExpenseItem
             key={expense.id}
             expense={expense}

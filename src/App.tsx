@@ -4,9 +4,11 @@ import BudgetTracker from "./components/BudgetTracker"
 import ExpenseDialog from "./components/ExpenseDialog"
 import ExpenseFilter from "./components/ExpenseFilter"
 import ExpenseList from "./components/ExpenseList"
+import { Expense } from "./types"
 
 function App() {
   const [budget, setBudget] = useState(0)
+  const [expenses, setExpenses] = useState([] as Expense[])
 
   return (
     <div className="bg-gray-200 min-h-screen">
@@ -18,9 +20,12 @@ function App() {
         budget > 0 ? (
           <>
             <div className="space-y-10 py-10">
-              <BudgetTracker />
+              <BudgetTracker
+              />
               <ExpenseFilter />
-              <ExpenseList />
+              <ExpenseList
+                expenses={expenses}
+              />
             </div>
 
             <ExpenseDialog
