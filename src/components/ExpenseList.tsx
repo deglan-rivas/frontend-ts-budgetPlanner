@@ -1,3 +1,5 @@
+import ExpenseDialog from "./ExpenseDialog"
+
 const expenseList = [
   {
     id: "abc123",
@@ -38,12 +40,15 @@ function ExpenseItem({ expense }) {
         <p className="text-2xl font-semibold">
           ${quantity.toFixed(2)}
         </p>
-        <p className="bg-blue-600 text-white text-center font-semibold cursor-pointer">
-          Update
-        </p>
+
         <p className="bg-rose-600 text-white text-center font-semibold cursor-pointer">
           Delete
         </p>
+        <ExpenseDialog dialogOptions={{ title: "Actualizar Gasto", buttonName: "Guardar Cambios" }} >
+          <p className="bg-blue-600 text-white text-center font-semibold cursor-pointer">
+            Update
+          </p>
+        </ExpenseDialog >
       </div>
     </div>
   )
