@@ -19,6 +19,10 @@ function App() {
   const [expenses, setExpenses] = useState([] as Expense[])
   const [expense, setExpense] = useState(initialExpense)
 
+  function addExpense(expense: Expense): void {
+    setExpenses([...expenses, expense])
+  }
+
   return (
     <div className="bg-gray-200 min-h-screen">
       <h1 className="bg-blue-600 text-white uppercase text-4xl font-semibold py-8 text-center">
@@ -40,6 +44,9 @@ function App() {
             <ExpenseDialog
               dialogOptions={{ title: "Nuevo Gasto", buttonName: "Registrar Gasto" }}
               expense={expense}
+              setExpense={setExpense}
+              initialExpense={initialExpense}
+              addExpense={addExpense}
             >
               <button className="fixed bottom-5 right-5">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="w-16 h-16 text-blue-600 rounded-full">

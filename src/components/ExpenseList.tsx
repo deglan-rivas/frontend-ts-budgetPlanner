@@ -66,7 +66,7 @@ export default function ExpenseList({ expenses }) {
       }
 
       {
-        expenseList.map((expense) => (
+        expenses.map((expense) => (
           <ExpenseItem
             key={expense.id}
             expense={expense}
