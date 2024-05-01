@@ -1,4 +1,4 @@
-export default function BudgetTracker() {
+export default function BudgetTracker({ resetApp }) {
   return (
     <div className="px-10 py-10 grid grid-cols-2 gap-5 bg-white shadow-lg w-full max-w-3xl mx-auto">
       <div className="col-span-2 bg-gray-300 flex justify-center items-center text-sky-600 text-2xl
@@ -8,7 +8,10 @@ export default function BudgetTracker() {
 
       <div className="col-span-2 space-y-8
       md:col-span-1">
-        <button className="bg-pink-600 text-white uppercase py-2 text-center w-full rounded-md font-semibold">
+        <button
+          className="bg-pink-600 text-white uppercase py-2 text-center w-full rounded-md font-semibold"
+          onClick={() => resetApp()}
+        >
           Resetear App
         </button>
 

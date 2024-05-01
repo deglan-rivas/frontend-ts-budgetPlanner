@@ -31,6 +31,12 @@ function App() {
     setExpenses(expenses.filter((expense) => expense.id !== id))
   }
 
+  function resetApp() {
+    setBudget(0)
+    setExpenses([])
+    setExpense(initialExpense)
+  }
+
   return (
     <div className="bg-gray-200 min-h-screen">
       <h1 className="bg-blue-600 text-white uppercase text-4xl font-semibold py-8 text-center">
@@ -42,6 +48,7 @@ function App() {
           <>
             <div className="space-y-10 py-10">
               <BudgetTracker
+                resetApp={resetApp}
               />
               <ExpenseFilter />
               <ExpenseList
