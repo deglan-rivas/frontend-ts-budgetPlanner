@@ -5,18 +5,19 @@ import {
 } from "@/components/ui/dialog"
 import { expenseOptions } from "@/data/expenseOptions"
 
-export default function ExpenseDialog({ children, dialogOptions, expense }) {
-  const { title, buttonName } = dialogOptions
+export default function ExpenseDialogUpdate() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        {children}
+        <p className="bg-blue-600 text-white text-center font-semibold cursor-pointer">
+          Update
+        </p>
       </DialogTrigger>
       <DialogContent className="mx-auto w-[92%] rounded-lg
       md:max-w-3xl">
         <form action="" className="w-full space-y-5">
           <h2 className="text-center font-semibold uppercase text-2xl border-b-4 border-b-sky-600 py-2">
-            {title}
+            Actualizar Gasto
           </h2>
 
           <div className="space-y-2">
@@ -71,7 +72,7 @@ export default function ExpenseDialog({ children, dialogOptions, expense }) {
 
           <input
             type="submit"
-            value={buttonName}
+            value={"Guardar Cambios"}
             className="bg-blue-600 text-white uppercase py-2 text-center w-full font-semibold rounded-md"
           />
         </form>

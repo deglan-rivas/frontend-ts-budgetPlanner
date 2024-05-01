@@ -7,8 +7,17 @@ import ExpenseList from "./components/ExpenseList"
 import { Expense } from "./types"
 
 function App() {
+  const initialExpense: Expense = {
+    id: "",
+    category: "",
+    name: "",
+    quantity: 0,
+    date: "",
+  }
+
   const [budget, setBudget] = useState(0)
   const [expenses, setExpenses] = useState([] as Expense[])
+  const [expense, setExpense] = useState(initialExpense)
 
   return (
     <div className="bg-gray-200 min-h-screen">
@@ -30,6 +39,7 @@ function App() {
 
             <ExpenseDialog
               dialogOptions={{ title: "Nuevo Gasto", buttonName: "Registrar Gasto" }}
+              expense={expense}
             >
               <button className="fixed bottom-5 right-5">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="w-16 h-16 text-blue-600 rounded-full">

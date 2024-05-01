@@ -1,4 +1,4 @@
-import ExpenseDialog from "./ExpenseDialog"
+import ExpenseDialogUpdate from "./ExpenseDialogUpdate"
 
 const expenseList = [
   {
@@ -44,11 +44,7 @@ function ExpenseItem({ expense }) {
         <p className="bg-rose-600 text-white text-center font-semibold cursor-pointer">
           Delete
         </p>
-        <ExpenseDialog dialogOptions={{ title: "Actualizar Gasto", buttonName: "Guardar Cambios" }} >
-          <p className="bg-blue-600 text-white text-center font-semibold cursor-pointer">
-            Update
-          </p>
-        </ExpenseDialog >
+        <ExpenseDialogUpdate />
       </div>
     </div>
   )
@@ -70,7 +66,7 @@ export default function ExpenseList({ expenses }) {
       }
 
       {
-        expenses.map((expense) => (
+        expenseList.map((expense) => (
           <ExpenseItem
             key={expense.id}
             expense={expense}
