@@ -22,7 +22,7 @@ export const expenseOptions = [
   {
     id: 4,
     name: "GastosVarios",
-    value: "gastosvarios"
+    value: "gastos"
   },
   {
     id: 5,
