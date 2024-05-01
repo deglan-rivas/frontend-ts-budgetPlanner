@@ -27,6 +27,10 @@ function App() {
     setExpenses(expenses.map((expense) => expense.id === updatedExpense.id ? updatedExpense : expense))
   }
 
+  function deleteExpense(id: Expense['id']): void {
+    setExpenses(expenses.filter((expense) => expense.id !== id))
+  }
+
   return (
     <div className="bg-gray-200 min-h-screen">
       <h1 className="bg-blue-600 text-white uppercase text-4xl font-semibold py-8 text-center">
@@ -43,6 +47,7 @@ function App() {
               <ExpenseList
                 expenses={expenses}
                 updateExpense={updateExpense}
+                deleteExpense={deleteExpense}
               />
             </div>
 

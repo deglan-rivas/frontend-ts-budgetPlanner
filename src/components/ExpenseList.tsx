@@ -17,7 +17,7 @@ const expenseList = [
   }
 ]
 
-function ExpenseItem({ expense, updateExpense }) {
+function ExpenseItem({ expense, updateExpense, deleteExpense }) {
   const { category, name, quantity, date } = expense
   return (
     <div className="flex justify-between items-center gap-5">
@@ -36,14 +36,17 @@ function ExpenseItem({ expense, updateExpense }) {
         </div>
       </div>
 
-      <div className="space-y-1">
+      <div className="flex flex-col gap-1 justify-between items-stretch">
         <p className="text-2xl font-semibold">
           ${quantity.toFixed(2)}
         </p>
 
-        <p className="bg-rose-600 text-white text-center font-semibold cursor-pointer rounded-md">
+        <button
+          className="bg-rose-600 text-white text-center font-semibold cursor-pointer rounded-md"
+          onClick={() => deleteExpense(expense.id)}
+        >
           Delete
-        </p>
+        </button>
         <ExpenseDialogUpdate
           expense={expense}
           updateExpense={updateExpense}
@@ -53,7 +56,7 @@ function ExpenseItem({ expense, updateExpense }) {
   )
 }
 
-export default function ExpenseList({ expenses, updateExpense }) {
+export default function ExpenseList({ expenses, updateExpense, deleteExpense }) {
   return (
     <section className="px-10 py-10 bg-white max-w-3xl mx-auto space-y-10">
       {
@@ -74,6 +77,7 @@ export default function ExpenseList({ expenses, updateExpense }) {
             key={expense.id}
             expense={expense}
             updateExpense={updateExpense}
+            deleteExpense={deleteExpense}
           />
         ))
       }

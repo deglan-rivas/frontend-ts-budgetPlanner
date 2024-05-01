@@ -33,9 +33,9 @@ export default function ExpenseDialogUpdate({ expense, updateExpense }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <p className="bg-blue-600 text-white text-center font-semibold cursor-pointer rounded-md">
+        <button className="bg-blue-600 text-white text-center font-semibold cursor-pointer rounded-md">
           Update
-        </p>
+        </button>
       </DialogTrigger>
       <DialogContent className="mx-auto w-[92%] rounded-lg
       md:max-w-3xl">
