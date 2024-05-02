@@ -22,6 +22,7 @@ function App() {
   // const [expenses, setExpenses] = useState([] as Expense[])
   const [expenses, setExpenses] = useState(initialExpenses)
   const [expense, setExpense] = useState(initialExpense)
+  const [filter, setFilter] = useState("")
 
   useEffect(() => {
     localStorage.setItem('budget', budget.toString())
@@ -65,12 +66,15 @@ function App() {
                 totalExpenses={totalExpenses}
                 availableBudget={availableBudget}
               />
-              <ExpenseFilter />
+              <ExpenseFilter
+                setFilter={setFilter}
+              />
               <ExpenseList
                 expenses={expenses}
                 updateExpense={updateExpense}
                 deleteExpense={deleteExpense}
                 availableBudget={availableBudget}
+                filter={filter}
               />
             </div>
 

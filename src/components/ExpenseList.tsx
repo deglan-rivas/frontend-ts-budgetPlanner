@@ -57,11 +57,17 @@ function ExpenseItem({ expense, updateExpense, deleteExpense, availableBudget })
   )
 }
 
-export default function ExpenseList({ expenses, updateExpense, deleteExpense, availableBudget }) {
+export default function ExpenseList({ expenses, updateExpense, deleteExpense, availableBudget, filter }) {
+  let expenseList = [...expenses]
+
+  if (filter !== "") {
+    expenseList = expenseList.filter((expense) => expense.category === filter)
+  }
+
   return (
     <section className="px-10 py-10 bg-white max-w-3xl mx-auto space-y-10">
       {
-        expenses.length === 0 ? (
+        expenseList.length === 0 ? (
           <h2 className="text-gray-600 font-semibold text-2xl">
             No hay gastos aún
           </h2>
@@ -73,7 +79,7 @@ export default function ExpenseList({ expenses, updateExpense, deleteExpense, av
       }
 
       {
-        expenses.map((expense) => (
+        expenseList.map((expense) => (
           <ExpenseItem
             key={expense.id}
             expense={expense}
