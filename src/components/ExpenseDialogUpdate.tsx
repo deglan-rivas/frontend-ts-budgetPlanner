@@ -66,6 +66,7 @@ export default function ExpenseDialogUpdate({ expense, updateExpense }) {
               type="number"
               id="quantity"
               className="px-2 py-2 bg-gray-100 w-full"
+              min={0}
               value={quantity}
               onChange={(e) => handleChangeInt(e)}
             />

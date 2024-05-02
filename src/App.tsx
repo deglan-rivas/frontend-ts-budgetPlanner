@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import BudgetForm from "./components/BudgetForm"
 import BudgetTracker from "./components/BudgetTracker"
 import ExpenseDialog from "./components/ExpenseDialog"
@@ -37,6 +37,8 @@ function App() {
     setExpense(initialExpense)
   }
 
+  const totalExpenses = useMemo(() => expenses.reduce((total, expense) => total + expense.quantity, 0), [expenses])
+
   return (
     <div className="bg-gray-200 min-h-screen">
       <h1 className="bg-blue-600 text-white uppercase text-4xl font-semibold py-8 text-center">
@@ -49,6 +51,8 @@ function App() {
             <div className="space-y-10 py-10">
               <BudgetTracker
                 resetApp={resetApp}
+                budget={budget}
+                totalExpenses={totalExpenses}
               />
               <ExpenseFilter />
               <ExpenseList
