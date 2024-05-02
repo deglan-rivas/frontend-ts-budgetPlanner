@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-export default function BudgetTracker({ resetApp, budget, totalExpenses }) {
+export default function BudgetTracker({ resetApp, budget, totalExpenses, availableBudget }) {
   return (
     <div className="px-10 py-10 grid grid-cols-2 gap-5 bg-white shadow-lg w-full max-w-3xl mx-auto">
       <div
@@ -21,24 +21,24 @@ export default function BudgetTracker({ resetApp, budget, totalExpenses }) {
 
         <p className="text-center font-semibold text-blue-600 text-2xl">
           Presupuesto:
-          <span className="ml-1 text-black">
-            $ {budget.toFixed(2)}
+          <span className="ml-2 text-black">
+            ${budget.toFixed(2)}
           </span>
         </p>
 
         <p className={cn("text-center font-semibold text-blue-600 text-2xl",
           totalExpenses === budget && "text-rose-600")}>
           Disponible:
-          <span className={cn("ml-1 text-black",
+          <span className={cn("ml-2 text-black",
             totalExpenses === budget && "text-rose-600")}>
-            $ {(budget - totalExpenses).toFixed(2)}
+            ${availableBudget.toFixed(2)}
           </span>
         </p>
 
         <p className="text-center font-semibold text-blue-600 text-2xl">
           Gastado:
-          <span className="ml-1 text-black">
-            $ {totalExpenses.toFixed(2)}
+          <span className="ml-2 text-black">
+            ${totalExpenses.toFixed(2)}
           </span>
         </p>
       </div>

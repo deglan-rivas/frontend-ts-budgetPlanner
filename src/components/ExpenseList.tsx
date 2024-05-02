@@ -36,8 +36,8 @@ function ExpenseItem({ expense, updateExpense, deleteExpense }) {
         </div>
       </div>
 
-      <div className="flex flex-col gap-1 justify-between items-stretch">
-        <p className="text-2xl font-semibold">
+      <div className="flex flex-col gap-1 justify-between items-stretch w-20">
+        <p className="text-2xl font-semibold text-center">
           ${quantity.toFixed(2)}
         </p>
 

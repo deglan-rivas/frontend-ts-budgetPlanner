@@ -8,7 +8,7 @@ import { Expense } from "./types"
 
 function App() {
   const initialExpense: Expense = {
-    id: "",
+    id: "notnull",
     category: "",
     name: "",
     quantity: 0,
@@ -38,6 +38,7 @@ function App() {
   }
 
   const totalExpenses = useMemo(() => expenses.reduce((total, expense) => total + expense.quantity, 0), [expenses])
+  const availableBudget = useMemo(() => budget - totalExpenses, [budget, totalExpenses])
 
   return (
     <div className="bg-gray-200 min-h-screen">
@@ -53,6 +54,7 @@ function App() {
                 resetApp={resetApp}
                 budget={budget}
                 totalExpenses={totalExpenses}
+                availableBudget={availableBudget}
               />
               <ExpenseFilter />
               <ExpenseList
@@ -68,6 +70,7 @@ function App() {
               setExpense={setExpense}
               initialExpense={initialExpense}
               addExpense={addExpense}
+              availableBudget={availableBudget}
             >
               <button className="fixed bottom-5 right-5">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="w-16 h-16 text-blue-600 rounded-full">
