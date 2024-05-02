@@ -61,6 +61,7 @@ function App() {
                 expenses={expenses}
                 updateExpense={updateExpense}
                 deleteExpense={deleteExpense}
+                availableBudget={availableBudget}
               />
             </div>
 
