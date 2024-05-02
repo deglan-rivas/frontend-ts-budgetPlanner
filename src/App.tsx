@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import BudgetForm from "./components/BudgetForm"
 import BudgetTracker from "./components/BudgetTracker"
 import ExpenseDialog from "./components/ExpenseDialog"
@@ -15,9 +15,18 @@ function App() {
     date: "",
   }
 
-  const [budget, setBudget] = useState(0)
-  const [expenses, setExpenses] = useState([] as Expense[])
+  const initialBudget = Number(localStorage.getItem('budget')) || 0
+  const initialExpenses: Expense[] = JSON.parse(localStorage.getItem('expenses')) || []
+
+  const [budget, setBudget] = useState(initialBudget)
+  // const [expenses, setExpenses] = useState([] as Expense[])
+  const [expenses, setExpenses] = useState(initialExpenses)
   const [expense, setExpense] = useState(initialExpense)
+
+  useEffect(() => {
+    localStorage.setItem('budget', budget.toString())
+    localStorage.setItem('expenses', JSON.stringify(expenses))
+  }, [budget, expenses])
 
   function addExpense(expense: Expense): void {
     setExpenses([...expenses, expense])
