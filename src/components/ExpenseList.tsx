@@ -1,23 +1,28 @@
+import { Expense } from "@/types"
 import ExpenseDialogUpdate from "./ExpenseDialogUpdate"
 
-const expenseList = [
-  {
-    id: "abc123",
-    category: "ahorro",
-    name: "gasto ahorro",
-    quantity: 12,
-    date: "lunes, 29 de abril de 2024",
-  },
-  {
-    id: "def456",
-    category: "casa",
-    name: "gasto casa",
-    quantity: 21,
-    date: "lunes, 30 de abril de 2024",
-  }
-]
+// const expenseList: Expense[] = [
+//   {
+//     id: "abc123",
+//     category: "ahorro",
+//     name: "gasto ahorro",
+//     quantity: 12,
+//     date: "lunes, 29 de abril de 2024",
+//   },
+//   {
+//     id: "def456",
+//     category: "casa",
+//     name: "gasto casa",
+//     quantity: 21,
+//     date: "lunes, 30 de abril de 2024",
+//   }
+// ]
 
-function ExpenseItem({ expense, updateExpense, deleteExpense, availableBudget }) {
+type ExpenseItemProps = Pick<ExpenseListProps, 'updateExpense' | 'deleteExpense' | 'availableBudget'> & {
+  expense: Expense
+}
+
+function ExpenseItem({ expense, updateExpense, deleteExpense, availableBudget }: ExpenseItemProps) {
   const { category, name, quantity, date } = expense
   return (
     <div className="flex justify-between items-center gap-5">
@@ -57,7 +62,15 @@ function ExpenseItem({ expense, updateExpense, deleteExpense, availableBudget })
   )
 }
 
-export default function ExpenseList({ expenses, updateExpense, deleteExpense, availableBudget, filter }) {
+interface ExpenseListProps {
+  expenses: Expense[]
+  updateExpense: (updatedExpense: Expense) => void
+  deleteExpense: (id: string) => void
+  availableBudget: number
+  filter: string
+}
+
+export default function ExpenseList({ expenses, updateExpense, deleteExpense, availableBudget, filter }: ExpenseListProps) {
   let expenseList = [...expenses]
 
   if (filter !== "") {

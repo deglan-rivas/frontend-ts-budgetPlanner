@@ -1,9 +1,13 @@
 import { useState } from "react"
 
-export default function BudgetForm({ setBudget }) {
+interface BudgeFormProps {
+  setBudget: React.Dispatch<React.SetStateAction<number>>
+}
+
+export default function BudgetForm({ setBudget }: BudgeFormProps) {
   const [preBudget, setPreBudget] = useState(0)
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setBudget(preBudget)
   }

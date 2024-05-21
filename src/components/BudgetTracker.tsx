@@ -1,6 +1,13 @@
 import { cn } from "@/lib/utils";
 
-export default function BudgetTracker({ resetApp, budget, totalExpenses, availableBudget }) {
+interface BudgetTrackerProps {
+  resetApp: () => void
+  budget: number
+  totalExpenses: number
+  availableBudget: number
+}
+
+export default function BudgetTracker({ resetApp, budget, totalExpenses, availableBudget }: BudgetTrackerProps) {
   return (
     <div className="px-10 py-10 grid grid-cols-2 gap-5 bg-white shadow-lg w-full max-w-3xl mx-auto">
       <div

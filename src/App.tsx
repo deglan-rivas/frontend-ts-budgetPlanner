@@ -16,7 +16,7 @@ function App() {
   }
 
   const initialBudget = Number(localStorage.getItem('budget')) || 0
-  const initialExpenses: Expense[] = JSON.parse(localStorage.getItem('expenses')) || []
+  const initialExpenses: Expense[] = JSON.parse(localStorage.getItem('expenses') || '[]')
 
   const [budget, setBudget] = useState(initialBudget)
   // const [expenses, setExpenses] = useState([] as Expense[])
@@ -41,7 +41,7 @@ function App() {
     setExpenses(expenses.filter((expense) => expense.id !== id))
   }
 
-  function resetApp() {
+  function resetApp(): void {
     setBudget(0)
     setExpenses([])
     setExpense(initialExpense)

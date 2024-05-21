@@ -4,24 +4,38 @@ import {
   DialogTrigger
 } from "@/components/ui/dialog";
 import { expenseOptions } from "@/data/expenseOptions";
+import { Expense } from "@/types";
 import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import ErrorMessage from "./ErrorMessage";
 
-export default function ExpenseDialog({ children, dialogOptions, expense, setExpense, initialExpense, addExpense, availableBudget }) {
+interface ExpenseDialogOptions {
+  children: React.ReactNode,
+  dialogOptions: {
+    title: string,
+    buttonName: string
+  }
+  expense: Expense
+  setExpense: React.Dispatch<React.SetStateAction<Expense>>
+  initialExpense: Expense
+  addExpense: (expense: Expense) => void
+  availableBudget: number
+}
+
+export default function ExpenseDialog({ children, dialogOptions, expense, setExpense, initialExpense, addExpense, availableBudget }: ExpenseDialogOptions) {
   const { title, buttonName } = dialogOptions
   const { category, name, quantity, date } = expense
   const [errorMessage, setErrorMessage] = useState("")
   const [isOpen, setIsOpen] = useState(false)
 
-  const handleChange = (e): void => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>): void => {
     setExpense({
       ...expense,
       [e.target.id]: e.target.value
     })
   }
 
-  const handleChangeInt = (e): void => {
+  const handleChangeInt = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setExpense({
       ...expense,
       [e.target.id]: +e.target.value
@@ -127,7 +141,7 @@ export default function ExpenseDialog({ children, dialogOptions, expense, setExp
               Fecha Gasto:
             </label>
             <input
-              type="text"
+              type="date"
               id="date"
               placeholder="Añade el nombre del gasto"
               className="px-2 py-2 bg-gray-100 w-full"

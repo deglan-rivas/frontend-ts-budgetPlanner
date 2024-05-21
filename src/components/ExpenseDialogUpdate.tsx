@@ -4,10 +4,17 @@ import {
   DialogTrigger
 } from "@/components/ui/dialog"
 import { expenseOptions } from "@/data/expenseOptions"
+import { Expense } from "@/types"
 import { useState } from "react"
 import ErrorMessage from "./ErrorMessage"
 
-export default function ExpenseDialogUpdate({ expense, updateExpense, availableBudget }) {
+interface ExpenseDialogUpdateProps {
+  expense: Expense
+  updateExpense: (updatedExpense: Expense) => void
+  availableBudget: number
+}
+
+export default function ExpenseDialogUpdate({ expense, updateExpense, availableBudget }: ExpenseDialogUpdateProps) {
   const upperLimit = availableBudget + expense.quantity
 
   const [updatedExpense, setUpdatedExpense] = useState(expense)
@@ -15,14 +22,14 @@ export default function ExpenseDialogUpdate({ expense, updateExpense, availableB
   const [errorMessage, setErrorMessage] = useState("")
   const [isOpen, setIsOpen] = useState(false)
 
-  const handleChange = (e): void => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>): void => {
     setUpdatedExpense({
       ...updatedExpense,
       [e.target.id]: e.target.value
     })
   }
 
-  const handleChangeInt = (e): void => {
+  const handleChangeInt = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setUpdatedExpense({
       ...updatedExpense,
       [e.target.id]: +e.target.value
