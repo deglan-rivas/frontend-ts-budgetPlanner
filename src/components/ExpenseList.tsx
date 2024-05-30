@@ -1,3 +1,4 @@
+import useBudget from "@/hooks/useBudget"
 import { Expense } from "@/types"
 import ExpenseDialogUpdate from "./ExpenseDialogUpdate"
 
@@ -18,11 +19,12 @@ import ExpenseDialogUpdate from "./ExpenseDialogUpdate"
 //   }
 // ]
 
-type ExpenseItemProps = Pick<ExpenseListProps, 'updateExpense' | 'deleteExpense' | 'availableBudget'> & {
+type ExpenseItemProps = {
   expense: Expense
 }
 
-function ExpenseItem({ expense, updateExpense, deleteExpense, availableBudget }: ExpenseItemProps) {
+function ExpenseItem({ expense }: ExpenseItemProps) {
+  const { dispatch } = useBudget()
   const { category, name, quantity, date } = expense
   return (
     <div className="flex justify-between items-center gap-5">
@@ -48,29 +50,21 @@ function ExpenseItem({ expense, updateExpense, deleteExpense, availableBudget }:
 
         <button
           className="bg-rose-600 text-white text-center font-semibold cursor-pointer rounded-md"
-          onClick={() => deleteExpense(expense.id)}
+          onClick={() => dispatch({ type: 'delete-expense', payload: { id: expense.id } })}
         >
           Delete
         </button>
         <ExpenseDialogUpdate
           expense={expense}
-          updateExpense={updateExpense}
-          availableBudget={availableBudget}
         />
       </div>
     </div>
   )
 }
 
-interface ExpenseListProps {
-  expenses: Expense[]
-  updateExpense: (updatedExpense: Expense) => void
-  deleteExpense: (id: string) => void
-  availableBudget: number
-  filter: string
-}
+export default function ExpenseList() {
+  const { state: { expenses, filter } } = useBudget()
 
-export default function ExpenseList({ expenses, updateExpense, deleteExpense, availableBudget, filter }: ExpenseListProps) {
   let expenseList = [...expenses]
 
   if (filter !== "") {
@@ -96,9 +90,6 @@ export default function ExpenseList({ expenses, updateExpense, deleteExpense, av
           <ExpenseItem
             key={expense.id}
             expense={expense}
-            updateExpense={updateExpense}
-            deleteExpense={deleteExpense}
-            availableBudget={availableBudget}
           />
         ))
       }

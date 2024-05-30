@@ -4,6 +4,8 @@ import {
   DialogTrigger
 } from "@/components/ui/dialog";
 import { expenseOptions } from "@/data/expenseOptions";
+import useBudget from "@/hooks/useBudget";
+import { initialExpense } from "@/reducers/budget-reducer";
 import { Expense } from "@/types";
 import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
@@ -15,18 +17,21 @@ interface ExpenseDialogOptions {
     title: string,
     buttonName: string
   }
-  expense: Expense
-  setExpense: React.Dispatch<React.SetStateAction<Expense>>
-  initialExpense: Expense
-  addExpense: (expense: Expense) => void
-  availableBudget: number
+  // expense: Expense
+  // setExpense: React.Dispatch<React.SetStateAction<Expense>>
+  // initialExpense: Expense
+  // addExpense: (expense: Expense) => void
+  // availableBudget: number
 }
 
-export default function ExpenseDialog({ children, dialogOptions, expense, setExpense, initialExpense, addExpense, availableBudget }: ExpenseDialogOptions) {
+export default function ExpenseDialog({ children, dialogOptions }: ExpenseDialogOptions) {
   const { title, buttonName } = dialogOptions
+  const [expense, setExpense] = useState<Expense>(initialExpense)
+  // const {state:{newExpense: expense}} = useBudget()
   const { category, name, quantity, date } = expense
   const [errorMessage, setErrorMessage] = useState("")
-  const [isOpen, setIsOpen] = useState(false)
+  // const [isOpen, setIsOpen] = useState(false)
+  const { state: { isNewModal: isOpen }, availableBudget, dispatch } = useBudget()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>): void => {
     setExpense({
@@ -56,16 +61,19 @@ export default function ExpenseDialog({ children, dialogOptions, expense, setExp
       return
     }
 
-    addExpense({ ...expense, id: uuidv4() })
+    // addExpense({ ...expense, id: uuidv4() })
+    dispatch({ type: 'add-expense', payload: { expense: { ...expense, id: uuidv4() } } })
     setExpense(initialExpense)
     setErrorMessage("")
-    setIsOpen(false)
+    // setIsOpen(false)
+    dispatch({ type: 'change-new-modal', payload: { isOpen: false } })
   }
 
   // const openCloseModal = () => {
   const openCloseModal = (isShadcnModalOpen: boolean) => {
     // setIsOpen(!isOpen)
-    setIsOpen(isShadcnModalOpen)
+    // setIsOpen(isShadcnModalOpen)
+    dispatch({ type: 'change-new-modal', payload: { isOpen: isShadcnModalOpen } })
     // console.log(isShadcnModalOpen)
     setErrorMessage("")
   }

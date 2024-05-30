@@ -4,20 +4,26 @@ import {
   DialogTrigger
 } from "@/components/ui/dialog"
 import { expenseOptions } from "@/data/expenseOptions"
+import useBudget from "@/hooks/useBudget"
 import { Expense } from "@/types"
 import { useState } from "react"
 import ErrorMessage from "./ErrorMessage"
 
 interface ExpenseDialogUpdateProps {
   expense: Expense
-  updateExpense: (updatedExpense: Expense) => void
-  availableBudget: number
 }
 
-export default function ExpenseDialogUpdate({ expense, updateExpense, availableBudget }: ExpenseDialogUpdateProps) {
-  const upperLimit = availableBudget + expense.quantity
-
+// TODO muy raro esto de cambiar el isUpdateModal por un isOpen local con useState, quizás es porque así cada componente tiene su propio update dialog, pero bueno al final funcionó así y no usando el modal con estado global
+export default function ExpenseDialogUpdate({ expense }: ExpenseDialogUpdateProps) {
+  const { availableBudget, dispatch } = useBudget()
+  // const { isUpdateModal, currentExpense } = state
+  // console.log(currentExpense)
   const [updatedExpense, setUpdatedExpense] = useState(expense)
+  const upperLimit = availableBudget + expense.quantity
+  // dispatch({ type: "update-current-expense", payload: { expense: expense } })
+
+  // console.log(currentExpense)
+  // console.log(updatedExpense)
   const { category, name, quantity, date } = updatedExpense
   const [errorMessage, setErrorMessage] = useState("")
   const [isOpen, setIsOpen] = useState(false)
@@ -49,13 +55,19 @@ export default function ExpenseDialogUpdate({ expense, updateExpense, availableB
       return
     }
 
-    updateExpense({ ...updatedExpense })
+    dispatch({ type: 'update-expense', payload: { updatedExpense: updatedExpense } })
     setErrorMessage("")
     setIsOpen(false)
+    // dispatch({ type: 'change-update-modal', payload: { isOpen: false, currentExpense: expense } })
   }
 
   const openCloseModal = (isShadcnModalOpen: boolean) => {
+    // TODO aquí actualizar mi currentExpense por el expense del item solo cuando se abre, osea, en true xd
+    // if (isShadcnModalOpen) {
+    //   dispatch({ type: "update-current-expense", payload: { expense: expense } })
+    // }
     setIsOpen(isShadcnModalOpen)
+    // dispatch({ type: 'change-update-modal', payload: { isOpen: isShadcnModalOpen, currentExpense: expense } })
     setErrorMessage("")
   }
 

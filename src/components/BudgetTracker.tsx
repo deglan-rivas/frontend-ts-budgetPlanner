@@ -1,13 +1,10 @@
+import useBudget from "@/hooks/useBudget";
 import { cn } from "@/lib/utils";
 
-interface BudgetTrackerProps {
-  resetApp: () => void
-  budget: number
-  totalExpenses: number
-  availableBudget: number
-}
+export default function BudgetTracker() {
+  const { state, dispatch, totalExpenses, availableBudget } = useBudget()
+  const { budget } = state
 
-export default function BudgetTracker({ resetApp, budget, totalExpenses, availableBudget }: BudgetTrackerProps) {
   return (
     <div className="px-10 py-10 grid grid-cols-2 gap-5 bg-white shadow-lg w-full max-w-3xl mx-auto">
       <div
@@ -21,7 +18,7 @@ export default function BudgetTracker({ resetApp, budget, totalExpenses, availab
       md:col-span-1">
         <button
           className="bg-pink-600 text-white uppercase py-2 text-center w-full rounded-md font-semibold"
-          onClick={() => resetApp()}
+          onClick={() => dispatch({ type: 'reset-app' })}
         >
           Resetear App
         </button>

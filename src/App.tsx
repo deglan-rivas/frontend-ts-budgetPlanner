@@ -1,54 +1,18 @@
-import { useEffect, useMemo, useState } from "react"
+import { useEffect } from "react"
 import BudgetForm from "./components/BudgetForm"
 import BudgetTracker from "./components/BudgetTracker"
 import ExpenseDialog from "./components/ExpenseDialog"
 import ExpenseFilter from "./components/ExpenseFilter"
 import ExpenseList from "./components/ExpenseList"
-import { Expense } from "./types"
+import useBudget from "./hooks/useBudget"
 
 function App() {
-  const initialExpense: Expense = {
-    id: "notnull",
-    category: "",
-    name: "",
-    quantity: 0,
-    date: "",
-  }
-
-  const initialBudget = Number(localStorage.getItem('budget')) || 0
-  const initialExpenses: Expense[] = JSON.parse(localStorage.getItem('expenses') || '[]')
-
-  const [budget, setBudget] = useState(initialBudget)
-  // const [expenses, setExpenses] = useState([] as Expense[])
-  const [expenses, setExpenses] = useState(initialExpenses)
-  const [expense, setExpense] = useState(initialExpense)
-  const [filter, setFilter] = useState("")
-
+  const { state } = useBudget()
+  const { budget } = state
   useEffect(() => {
-    localStorage.setItem('budget', budget.toString())
-    localStorage.setItem('expenses', JSON.stringify(expenses))
-  }, [budget, expenses])
-
-  function addExpense(expense: Expense): void {
-    setExpenses([...expenses, expense])
-  }
-
-  function updateExpense(updatedExpense: Expense): void {
-    setExpenses(expenses.map((expense) => expense.id === updatedExpense.id ? updatedExpense : expense))
-  }
-
-  function deleteExpense(id: Expense['id']): void {
-    setExpenses(expenses.filter((expense) => expense.id !== id))
-  }
-
-  function resetApp(): void {
-    setBudget(0)
-    setExpenses([])
-    setExpense(initialExpense)
-  }
-
-  const totalExpenses = useMemo(() => expenses.reduce((total, expense) => total + expense.quantity, 0), [expenses])
-  const availableBudget = useMemo(() => budget - totalExpenses, [budget, totalExpenses])
+    localStorage.setItem('budget', state.budget.toString())
+    localStorage.setItem('expenses', JSON.stringify(state.expenses))
+  }, [state.budget, state.expenses])
 
   return (
     <div className="bg-gray-200 min-h-screen">
@@ -61,30 +25,15 @@ function App() {
           <>
             <div className="space-y-10 py-10">
               <BudgetTracker
-                resetApp={resetApp}
-                budget={budget}
-                totalExpenses={totalExpenses}
-                availableBudget={availableBudget}
               />
               <ExpenseFilter
-                setFilter={setFilter}
               />
               <ExpenseList
-                expenses={expenses}
-                updateExpense={updateExpense}
-                deleteExpense={deleteExpense}
-                availableBudget={availableBudget}
-                filter={filter}
               />
             </div>
 
             <ExpenseDialog
               dialogOptions={{ title: "Nuevo Gasto", buttonName: "Registrar Gasto" }}
-              expense={expense}
-              setExpense={setExpense}
-              initialExpense={initialExpense}
-              addExpense={addExpense}
-              availableBudget={availableBudget}
             >
               <button className="fixed bottom-5 right-5">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="w-16 h-16 text-blue-600 rounded-full">

@@ -1,11 +1,9 @@
 import { expenseOptions } from "@/data/expenseOptions";
+import useBudget from "@/hooks/useBudget";
 
-interface ExpenseFilterProps {
-  // setFilter: (value: string) => void
-  setFilter: React.Dispatch<React.SetStateAction<string>>
-}
+export default function ExpenseFilter() {
+  const { dispatch } = useBudget()
 
-export default function ExpenseFilter({ setFilter }: ExpenseFilterProps) {
   return (
     <section className="px-10 py-10 bg-white max-w-3xl mx-auto rounded-md shadow-lg">
       <div className="flex gap-5 flex-col
@@ -15,7 +13,7 @@ export default function ExpenseFilter({ setFilter }: ExpenseFilterProps) {
         </label>
         <select name="expenseFilter" id="expenseFilter"
           className="px-2 py-3 bg-gray-200 rounded-md flex-1"
-          onChange={e => setFilter(e.target.value)}
+          onChange={e => dispatch({ type: 'set-filter', payload: { filter: e.target.value } })}
         >
           {expenseOptions.map((option) => (
             <option key={option.id} value={option.value} className="text-sm">

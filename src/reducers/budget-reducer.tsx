@@ -3,9 +3,11 @@ import { Expense } from "@/types"
 export interface BudgetState {
   budget: number
   expenses: Expense[]
-  expense: Expense
+  newExpense: Expense
+  currentExpense: Expense
   filter: string
-  isModelOpen: boolean
+  isNewModal: boolean,
+  isUpdateModal: boolean
 }
 
 export type BudgetActions =
@@ -13,11 +15,15 @@ export type BudgetActions =
   { type: "add-expense", payload: { expense: Expense } } |
   { type: "update-expense", payload: { updatedExpense: Expense } } |
   { type: "delete-expense", payload: { id: Expense['id'] } } |
-  { type: "reset-app" }
+  { type: "reset-app" } |
+  { type: "set-filter", payload: { filter: string } } |
+  { type: "change-new-modal", payload: { isOpen: boolean } } |
+  { type: "change-update-modal", payload: { isOpen: boolean, currentExpense: Expense } } |
+  { type: "update-current-expense", payload: { expense: Expense } }
 
 const initialExpenses: Expense[] = localStorage.getItem('expenses') ? JSON.parse(localStorage.getItem('expenses') || '[]') : []
 const initialBudget = localStorage.getItem('budget') ? Number(localStorage.getItem('budget')) : 0
-const initialExpense: Expense = {
+export const initialExpense: Expense = {
   id: "notnull",
   category: "",
   name: "",
@@ -28,9 +34,11 @@ const initialExpense: Expense = {
 export const initialState: BudgetState = {
   budget: initialBudget,
   expenses: initialExpenses,
-  expense: initialExpense,
+  newExpense: initialExpense,
+  currentExpense: initialExpense,
   filter: "",
-  isModelOpen: false
+  isNewModal: false,
+  isUpdateModal: false
 }
 
 export const budgetReducer = (
@@ -65,6 +73,27 @@ export const budgetReducer = (
         budget: 0,
         expenses: [],
         expense: initialExpense
+      }
+    case "set-filter":
+      return {
+        ...state,
+        filter: action.payload.filter
+      }
+    case "change-new-modal":
+      return {
+        ...state,
+        isNewModal: action.payload.isOpen
+      }
+    case "change-update-modal":
+      return {
+        ...state,
+        isUpdateModal: action.payload.isOpen,
+        currentExpense: action.payload.currentExpense
+      }
+    case "update-current-expense":
+      return {
+        ...state,
+        currentExpense: action.payload.expense
       }
     default:
       return state
