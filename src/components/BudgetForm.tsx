@@ -1,15 +1,14 @@
+import useBudget from "@/hooks/useBudget"
 import { useState } from "react"
 
-interface BudgeFormProps {
-  setBudget: React.Dispatch<React.SetStateAction<number>>
-}
-
-export default function BudgetForm({ setBudget }: BudgeFormProps) {
+export default function BudgetForm() {
   const [preBudget, setPreBudget] = useState(0)
+  const { dispatch } = useBudget()
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setBudget(preBudget)
+    // setBudget(preBudget)
+    dispatch({ type: 'add-budget', payload: { budget: preBudget } })
   }
 
   return (
