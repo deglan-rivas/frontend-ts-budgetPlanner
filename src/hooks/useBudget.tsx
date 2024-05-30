@@ -1,13 +1,13 @@
-// import { BudgetContext } from "@/context/BudgetContext";
-// import { useContext } from "react";
+import { BudgetContext } from "@/context/BudgetContext";
+import { useContext } from "react";
 
-// export default function useBudget() {
+export default function useBudget() {
 
-//   const budgetContext = useContext(BudgetContext)
+  const budgetContext = useContext(BudgetContext)
 
-//   if (!budgetContext) {
-//     throw new Error('useBudget must be used within a BudgetProvider')
-//   }
+  if (!budgetContext) {
+    throw new Error('useBudget must be used within a BudgetProvider')
+  }
 
-//   return budgetContext
-// }
+  return budgetContext
+}
